@@ -6,7 +6,18 @@
     if(isset($_SESSION['Username'])){
 
         include 'init.php';
-    
+
+        $stmt = $con->prepare   ("  SELECT 
+                                        SUM(Blood.Quantity) AS Quantity , BloodType.name As BloodType
+                                    FROM 
+                                        Blood, BloodType
+                                    WHERE
+                                        Blood.bloodTypeid = BloodType.id
+                                    GROUP BY BloodType.name
+                                ");
+
+        $stmt->execute();
+        $rows = $stmt->fetchAll();
 ?>
 
         <div id="wrapper">
@@ -28,90 +39,19 @@
                                         <tr>
                                             <th>Blood Group Name</th>
                                             <th>Blood Group Quantity</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>A+</td>
-                                            <td>3</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>B+</td>
-                                            <td>6</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>O+</td>
-                                            <td>4</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>AB+</td>
-                                            <td>1</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>A-</td>
-                                            <td>8</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>B-</td>
-                                            <td>13</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>O-</td>
-                                            <td>9</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>AB-</td>
-                                            <td>7</td>
-                                            <td>
-                                                <form method="POST" action="#">
-                                                    <a href="Edit.html" class="btn btn-primary btn-xs">
-                                                        <i class="fa fa-edit"></i> Edit </a>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                            foreach ($rows as $row) {
+?>
+                                            <tr>
+                                                <td><?php echo $row['BloodType']; ?></td>
+                                                <td><?php echo $row['Quantity']; ?></td>
+                                            </tr>
+<?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
