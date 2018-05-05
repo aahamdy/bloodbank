@@ -1,6 +1,11 @@
 <?php
 
-    include 'init.php';
+    ob_start(); // Output Buffering Start
+    session_start();
+
+    if(isset($_SESSION['Username'])){
+
+        include 'init.php';
     
 ?>
 
@@ -95,4 +100,18 @@
     </div>
 
 
-<?php include $tpl . 'footer.php'; ?>
+<?php 
+
+        include $tpl . 'footer.php'; 
+
+    } else {
+
+        header('Location: login.php');
+        exit();
+
+    }
+
+    ob_end_flush();
+
+
+?>

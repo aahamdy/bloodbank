@@ -20,7 +20,7 @@
         // Check if the User is Exist in the Database
 
         $stmt = $con->prepare   ("  SELECT 
-                                        id, username, password 
+                                        id, username, password, adminLevel 
                                     FROM 
                                         Members 
                                     WHERE
@@ -40,9 +40,10 @@
 
         if ($count > 0) {
 
-            $_SESSION['Username'] = $username;  // Register Session Name
-            $_SESSION['ID'] = $row['id'];   // Register Session ID 
-            header('Location: Dashboard.php');  // Redirect to Dashboard Page
+            $_SESSION['Username'] = $username;              // Register Session Name
+            $_SESSION['ID'] = $row['id'];                   // Register Session ID
+            $_SESSION['AdminLevel'] = $row['adminLevel'];   // Register Addmin Level
+            header('Location: Dashboard.php');              // Redirect to Dashboard Page
             exit();
             
         }
