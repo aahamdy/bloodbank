@@ -572,7 +572,43 @@
 
         } elseif($do == 'Activate') {
 
+
+
+            echo '<div id="wrapper">  
+                    <div id="page-wrapper">
+                        <div class="container-fluid">';
+
+            echo            '<h1 class="text-center">Activate Admin</h1>';
+
+            // Check if the GET request userid is Numeric and get the Integer value of it 
+
+            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+
+            // Select all the data depends on this id
+
+            $check = checkItem("id","Members",$userid);
+
+            // If there is Such ID Show the Form
+
+            if($check > 0) {
+                
+                $stmt = $con->prepare("UPDATE Members SET registrationApproved = 1 WHERE id = ?");
+                $stmt->execute(array($userid));   
+                
+                $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record Activated</div>'; 
+                redirectHome($theMsg, 'back');
+
+            } else {
+
+                $theMsg = '<div class="alert alert-danger">This ID Is Not Exist</div>';
+                redirectHome($theMsg);
             
+            }
+            
+            echo '          </div>
+            </div>
+        </div>
+        ';
 
         }
 
