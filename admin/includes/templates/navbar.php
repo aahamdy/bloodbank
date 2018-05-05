@@ -50,8 +50,13 @@
                     </li>
 
                     <li>
+                        <a href="members.php">
+                            <i class="fa fa-fw fa-user"></i> Admins </a>
+                    </li>
+
+                    <li>
                         <a href="GeneralSettings.php">
-                            <i class="fa fa-fw fa-sitemap"></i> General Settings</a>
+                            <i class="fa fa-fw fa-cog"></i> General Settings</a>
                     </li>
 
                 </ul>

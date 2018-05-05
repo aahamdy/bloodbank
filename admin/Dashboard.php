@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="col-xs-9 text-right">
                                             <div class="text-total"><?php echo $row['Quantity']; ?></div>
-                                            <p class="titles">Total Blood Quantity!</p>
+                                            <p class="titles">Total Blood Quantity</p>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="panel-footer detail-link clearfix btn-block" href="BloodQuantity.php">
+                                <a class="panel-footer detail-link clearfix btn-block" href="members.php">
                                     <span class="pull-left">View All</span>
                                     <span class="pull-right">
                                         <i class="fa fa-chevron-circle-right"></i>
@@ -147,7 +147,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="panel-footer detail-link clearfix btn-block" href="BloodQuantity.php">
+                                <a class="panel-footer detail-link clearfix btn-block" href="members.php?do=Manage&page=Pending">
                                     <span class="pull-left">View All</span>
                                     <span class="pull-right">
                                         <i class="fa fa-chevron-circle-right"></i>
