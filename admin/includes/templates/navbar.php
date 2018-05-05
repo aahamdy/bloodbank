@@ -16,17 +16,17 @@
             <ul class="nav navbar-right top-nav">
 
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">Admin
-                        <b class="fa fa-angle-down"></b>
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><?php 
+                            if(isset($_SESSION['Username'])){
+                                echo $_SESSION['Username'] . ' ';
+                            } else {
+                                echo "Admin ";
+                            }?><b class="fa fa-angle-down"></b>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="EditProfile.php">
                                 <i class="fa fa-fw fa-user"></i> Edit Profile</a>
-                        </li>
-                        <li>
-                            <a href="ChangePassword.php">
-                                <i class="fa fa-fw fa-cog"></i> Change Password</a>
                         </li>
                         <li class="divider"></li>
                         <li>
