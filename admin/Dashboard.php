@@ -9,6 +9,8 @@
         $loaderScript = '';
         include 'init.php';        
         
+        // Total Blood Quantity Query
+
         $stmt = $con->prepare   ("  SELECT 
                                         SUM(Blood.Quantity) AS Quantity
                                     FROM 
@@ -20,6 +22,7 @@
         $stmt->execute();
         $row = $stmt->fetch();
                     
+        // Total Number of Admins Query
 
         $stmt2 = $con->prepare   (" SELECT 
                                         COUNT(id) AS AllMembers
@@ -29,6 +32,8 @@
 
         $stmt2->execute();
         $row2 = $stmt2->fetch();
+
+        // Number of Pending Admins Query
 
         $stmt3 = $con->prepare   (" SELECT 
                                         COUNT(id) AS PendingMembers
@@ -41,6 +46,8 @@
         $stmt3->execute();
         $row3 = $stmt3->fetch();
 
+        // Total Number of Blood Centers Query
+
         $stmt4 = $con->prepare   (" SELECT 
                                         COUNT(id) AS BloodCenters
                                     FROM 
@@ -49,6 +56,20 @@
 
         $stmt4->execute();
         $row4 = $stmt4->fetch();
+
+        // Blood Type and Quanitiy Query
+
+        $stmt5 = $con->prepare   ("  SELECT 
+                                        SUM(Blood.Quantity) AS Quantity , BloodType.name As BloodType
+                                    FROM 
+                                        Blood, BloodType
+                                    WHERE
+                                        Blood.bloodTypeid = BloodType.id
+                                    GROUP BY BloodType.name
+                                ");
+
+        $stmt5->execute();
+        $row5 = $stmt5->fetchAll();
 
 ?>
 
