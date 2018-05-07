@@ -585,10 +585,6 @@
  
              if($check > 0) {
                  
-                 $stmt = $con->prepare("DELETE FROM Center WHERE bloodCenterid = :id");
-                 $stmt->bindParam(':id', $centerid);
-                 $stmt->execute();   
-
                  $stmt2 = $con->prepare("DELETE FROM BloodCenter WHERE id = :id");
                  $stmt2->bindParam(':id', $centerid);
                  $stmt2->execute();   
