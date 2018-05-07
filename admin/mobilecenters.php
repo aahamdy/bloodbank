@@ -314,7 +314,7 @@
                     </div>
                     ';
         
-        } elseif($do == 'Edit') {            // Edit Fixed Center Page
+        } elseif($do == 'Edit') {            // Edit Mobile Center Page
 
             // Check if the GET request centerid is Numeric and get the Integer value of it 
 
@@ -323,12 +323,12 @@
             // Select all the data depends on this id
 
             $stmt = $con->prepare   ("  SELECT * 
-                                        FROM BloodCenter, Center
-                                        WHERE BloodCenter.id = ? && Center.bloodCenterid = ? LIMIT 1 ");
+                                        FROM BloodCenter
+                                        WHERE BloodCenter.id = ? LIMIT 1 ");
 
             // Execute the Query
 
-            $stmt->execute(array($centerid, $centerid));
+            $stmt->execute(array($centerid));
 
             // Featch the data
 
@@ -342,14 +342,12 @@
 
 
             $stmt2 = $con->prepare("SELECT  BloodCenter.name, BloodCenter.address, BloodCenter.fromTime, BloodCenter.toTime,
-                                            Country.name AS country , Country.id as countryid, Distirct.name as district , Distirct.id as districtid, Center.phone, Center.email,
-                                            CenterType.id as centerid, CenterType.name as centertype
-                                    FROM	BloodCenter, Country, Distirct, Center, CenterType
+                                            Country.name AS country , Country.id as countryid, Distirct.name as district , Distirct.id as districtid
+                                    FROM	BloodCenter, Country, Distirct
                                     WHERE   BloodCenter.id = ? && BloodCenter.countryid = Country.id && 
-                                            BloodCenter.districtid = Distirct.id && Center.bloodCenterid = ? &&
-                                            Center.centerTypeid = CenterType.id
+                                            BloodCenter.districtid = Distirct.id
                                     ");
-            $stmt2->execute(array($centerid,$centerid));
+            $stmt2->execute(array($centerid));
             $row2 = $stmt2->fetch();
 
 
@@ -370,15 +368,6 @@
             $stmt4->execute();
             $row4 = $stmt4->fetchAll();
 
-            // Select all Center Types
-
-            $stmt5 = $con->prepare("    SELECT id , name
-                                        FROM CenterType
-                                    ");
-            $stmt5->execute();
-            $row5 = $stmt5->fetchAll();
-
-
             if ($count > 0 ) {  ?>
 
                 <div id="wrapper">  
@@ -388,7 +377,7 @@
 
                             <!-- Page Heading -->
                             <div class="go-title">
-                                <h3>Edit Fixed Center</h3>
+                                <h3>Edit Mobile Center</h3>
                                 <div class="go-line"></div>
                             </div>
                             <!-- Page Content -->
@@ -469,25 +458,6 @@
                                             </select>
                                             </div>
                                         </div>
-
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Email Address
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="email" value="<?php echo $row2['email'] ;?>"required="required"
-                                                    type="email">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Phone Number
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="phone" value="<?php echo $row2['phone'] ;?>"required="required"
-                                                    type="number">
-                                            </div>
-                                        </div>
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12"> Open Donation
                                                 <span class="required">*</span>
@@ -506,32 +476,6 @@
                                                     type="text">
                                             </div>
                                         </div>
-
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Center Type
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control col-md-7 col-xs-12" name="type">
-                                            <?php
-                                                    foreach ($row5 as $row55) { 
-                                                        
-                                                        if($row55['id'] == $row2['centerid']) { ?>
-                                                            <option value="<?php echo $row55['id']; ?>" selected ><?php echo $row55['name']; ?></option>
-                                                        <?php 
-                                                        
-                                                        } else {
-
-                                                        ?>
-                                                            <option value="<?php echo $row55['id']; ?>"><?php echo $row55['name']; ?></option>
-                                                        <?php }
-
-                                                    }
-                                                ?>                                           
-                                            </select>
-                                            </div>
-                                        </div>
-                                        
 
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
@@ -586,11 +530,8 @@
                 $address    = $_POST['address'];
                 $district   = $_POST['district'];
                 $country    = $_POST['country'];
-                $email      = $_POST['email'];
-                $phone      = $_POST['phone'];
                 $open       = $_POST['open'];
                 $close      = $_POST['close'];
-                $type       = $_POST['type'];
 
                 // Update the Database with this Info
 
@@ -598,12 +539,8 @@
                                             name = ?, address = ?, fromTime = ?, toTime = ?, countryid = ?, districtid = ?
                                         WHERE 
                                             id = ?;
-                                        UPDATE Center SET
-                                            phone = ?, email = ? , centerTypeid = ?
-                                        WHERE
-                                            bloodCenterid = ?
                                     ");
-                $stmt->execute(array($name, $address, $open, $close, $country, $district, $id, $phone, $email, $type, $id));
+                $stmt->execute(array($name, $address, $open, $close, $country, $district, $id));
 
                 // Echo Success Message
 
