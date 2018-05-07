@@ -4,8 +4,14 @@
     $noNavbar   = '';
 
     if(isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 0){
-        header('Location: Dashboard.php');  // Redirect to Dashboard Page
-    }    
+        
+        header('Location: Dashboard.php');  // Redirect to Manager Dashboard Page
+    
+    } elseif (isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 1){
+        
+        header('Location: ../admin/Dashboard.php');  // Redirect to Admin Dashboard Page
+    
+    }
 
     include 'init.php';
 
@@ -27,8 +33,6 @@
                                         username = ? 
                                     AND 
                                         password = ? 
-                                    AND 
-                                        adminLevel = 0
                                     LIMIT 1
                                 ");
 
@@ -43,7 +47,17 @@
             $_SESSION['Username'] = $username;              // Register Session Name
             $_SESSION['ID'] = $row['id'];                   // Register Session ID
             $_SESSION['AdminLevel'] = $row['adminLevel'];   // Register Addmin Level
-            header('Location: Dashboard.php');              // Redirect to Dashboard Page
+            
+            if(isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 0){
+        
+                header('Location: Dashboard.php');  // Redirect to Manager Dashboard Page
+            
+            } elseif (isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 1){
+                
+                header('Location: ../admin/Dashboard.php');  // Redirect to Admin Dashboard Page
+            
+            }
+
             exit();
             
         }
