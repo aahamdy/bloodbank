@@ -8,15 +8,14 @@
         include 'init.php';
 
         $stmt = $con->prepare   ("  SELECT 
-                                        SUM(Blood.Quantity) AS Quantity , BloodType.name As BloodType
+                                        Blood.Quantity, Blood.price, Blood.priceForHospital, BloodType.name As BloodType
                                     FROM 
                                         Blood, BloodType
                                     WHERE
-                                        Blood.bloodTypeid = BloodType.id
-                                    GROUP BY BloodType.name
+                                        Blood.bloodCenterid = ? && Blood.bloodTypeid = BloodType.id
                                 ");
 
-        $stmt->execute();
+        $stmt->execute(array(51));
         $rows = $stmt->fetchAll();
 ?>
 
@@ -38,7 +37,9 @@
                                     <thead>
                                         <tr>
                                             <th>Blood Group Name</th>
-                                            <th>Blood Group Quantity</th>
+                                            <th>Blood Quantity (Liter)</th>
+                                            <th>Price for Individuals (LE)</th>
+                                            <th>Price for Hospitals (LE)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -47,7 +48,9 @@
 ?>
                                             <tr>
                                                 <td><?php echo $row['BloodType']; ?></td>
-                                                <td><?php echo $row['Quantity']; ?></td>
+                                                <td><?php echo $row['Quantity'];?></td>
+                                                <td><?php echo $row['price']; ?></td>
+                                                <td><?php echo $row['priceForHospital']; ?></td>
                                             </tr>
 <?php
                                             }
