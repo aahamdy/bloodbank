@@ -347,7 +347,7 @@
                 <div id="page-wrapper">
                     <div class="container-fluid">';
 
-                echo '<h1 class="text-center">Insert Member</h1>';
+                echo '<h1 class="text-center">Insert Center</h1>';
 
                 $theMsg =  "<div class='alert alert-danger'>Sorry You Cannot Browse This Page Directly</div>";
                 redirectHome($theMsg, 'back');
@@ -363,19 +363,21 @@
                     </div>
                     ';
         
-        } elseif($do == 'Edit') {            // Edit Admin Page
+        } elseif($do == 'Edit') {            // Edit Fixed Center Page
 
-            // Check if the GET request userid is Numeric and get the Integer value of it 
+            // Check if the GET request centerid is Numeric and get the Integer value of it 
 
-            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+            $centerid = isset($_GET['centerid']) && is_numeric($_GET['centerid']) ? intval($_GET['centerid']) : 0;
 
             // Select all the data depends on this id
 
-            $stmt = $con->prepare   (" SELECT * FROM Members WHERE id = ? LIMIT 1 ");
+            $stmt = $con->prepare   ("  SELECT * 
+                                        FROM BloodCenter, Center
+                                        WHERE BloodCenter.id = ? && Center.bloodCenterid = ? LIMIT 1 ");
 
             // Execute the Query
 
-            $stmt->execute(array($userid));
+            $stmt->execute(array($centerid, $centerid));
 
             // Featch the data
 
@@ -388,29 +390,54 @@
             // If there is Such ID Show the Form
 
 
-            $stmt2 = $con->prepare(" SELECT 
-                                        id, name    
-                                    FROM 
-                                        BloodCenter
-                                    WHERE
-                                        registrationApproved = 1
-                                    ORDER BY
-                                        name
+            $stmt2 = $con->prepare("SELECT  BloodCenter.name, BloodCenter.address, BloodCenter.fromTime, BloodCenter.toTime,
+                                            Country.name AS country , Country.id as countryid, Distirct.name as district , Distirct.id as districtid, Center.phone, Center.email,
+                                            CenterType.id as centerid, CenterType.name as centertype
+                                    FROM	BloodCenter, Country, Distirct, Center, CenterType
+                                    WHERE   BloodCenter.id = ? && BloodCenter.countryid = Country.id && 
+                                            BloodCenter.districtid = Distirct.id && Center.bloodCenterid = ? &&
+                                            Center.centerTypeid = CenterType.id
                                     ");
-            $stmt2->execute(array());
-            $rows = $stmt2->fetchAll();
+            $stmt2->execute(array($centerid,$centerid));
+            $row2 = $stmt2->fetch();
+
+
+            // Select all the Countries
+
+            $stmt3 = $con->prepare("    SELECT id , name
+                                        FROM Country
+                                    ");
+            $stmt3->execute();
+            $row3 = $stmt3->fetchAll();
+
+
+            // Select all the Countries
+
+            $stmt4 = $con->prepare("    SELECT id , name
+                                        FROM Distirct
+                                    ");
+            $stmt4->execute();
+            $row4 = $stmt4->fetchAll();
+
+            // Select all Center Types
+
+            $stmt5 = $con->prepare("    SELECT id , name
+                                        FROM CenterType
+                                    ");
+            $stmt5->execute();
+            $row5 = $stmt5->fetchAll();
 
 
             if ($count > 0 ) {  ?>
 
                 <div id="wrapper">  
-                <div id="page-wrapper">
+                <div id="page-wrapper">    
                     <div class="container-fluid">
                         <div class="row" id="main">
 
                             <!-- Page Heading -->
                             <div class="go-title">
-                                <h3>Edit Admin</h3>
+                                <h3>Edit Fixed Center</h3>
                                 <div class="go-line"></div>
                             </div>
                             <!-- Page Content -->
@@ -419,71 +446,43 @@
                                     <div id="response">
                                     </div>
                                     <form method="POST" action="?do=Update" class="form-horizontal form-label-left">
-                                    <input type="hidden" name="userid" value="<?php echo $userid ?>">
+
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Password
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Center Name
+                                                <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input type="hidden" name="oldpassword" value="<?php echo $row['password']?>" />
-                                                <input class="form-control col-md-7 col-xs-12" name="newpassword" placeholder="Should be Long and Strong" type="password">
+                                                <input class="form-control col-md-7 col-xs-12" name="centername" value="<?php echo $row2[0] ;?>" required="required" type="text">
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> First Name
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Street Address
                                                 <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="fname" placeholder="First Name" value="<?php echo $row['fname']?>" required="required" type="text">
+                                                <input class="form-control col-md-7 col-xs-12" name="address" value="<?php echo $row2['address'] ;?>"required="required" type="text">
                                             </div>
                                         </div>
 
                                         <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Last Name
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> District
                                                 <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="lname" placeholder="Last Name" value="<?php echo $row['lname']?>" required="required" type="text">
-                                            </div>
-                                        </div>
-
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Email Address
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="email" placeholder="Admin Email" value="<?php echo $row['email']?>" required="required"
-                                                    type="email">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Phone Number
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control col-md-7 col-xs-12" name="phone" placeholder="Admin Phone Number" value="<?php echo $row['phone']?>" required="required"
-                                                    type="number">
-                                            </div>
-                                        </div>
-
-                                        <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Blood Center
-                                                <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select class="form-control col-md-7 col-xs-12" name="center">
+                                            <select class="form-control col-md-7 col-xs-12" name="district">
 
                                                 <?php
-                                                    foreach ($rows as $row2) { 
+                                                    foreach ($row4 as $row44) { 
                                                         
-                                                        if($row2['id'] == $row['bloodCenterid']) { ?>
-                                                            <option value="<?php echo $row2['id']; ?>" selected ><?php echo $row2['name']; ?></option>
+                                                        if($row44['id'] == $row2['districtid']) { ?>
+                                                            <option value="<?php echo $row44['id']; ?>" selected ><?php echo $row44['name']; ?></option>
                                                         <?php 
                                                         
                                                         } else {
 
                                                         ?>
-                                                            <option value="<?php echo $row2['id']; ?>"><?php echo $row2['name']; ?></option>
+                                                            <option value="<?php echo $row44['id']; ?>"><?php echo $row44['name']; ?></option>
                                                         <?php }
 
                                                     }
@@ -492,6 +491,96 @@
                                             </select>
                                             </div>
                                         </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Country
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="country">
+
+                                                <?php
+                                                    foreach ($row3 as $row33) { 
+                                                        
+                                                        if($row33['id'] == $row2['countryid']) { ?>
+                                                            <option value="<?php echo $row33['id']; ?>" selected ><?php echo $row33['name']; ?></option>
+                                                        <?php 
+                                                        
+                                                        } else {
+
+                                                        ?>
+                                                            <option value="<?php echo $row33['id']; ?>"><?php echo $row33['name']; ?></option>
+                                                        <?php }
+
+                                                    }
+                                                ?>
+                                            
+                                            </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Email Address
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="email" value="<?php echo $row2['email'] ;?>"required="required"
+                                                    type="email">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Phone Number
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="phone" value="<?php echo $row2['phone'] ;?>"required="required"
+                                                    type="number">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Open Donation
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="open" value="<?php echo $row2['fromTime'] ;?>" required="required"
+                                                    type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Close Donation
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" name="close" value="<?php echo $row2['toTime'] ;?>" required="required"
+                                                    type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Center Type
+                                                <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="type">
+                                            <?php
+                                                    foreach ($row5 as $row55) { 
+                                                        
+                                                        if($row55['id'] == $row2['centerid']) { ?>
+                                                            <option value="<?php echo $row55['id']; ?>" selected ><?php echo $row55['name']; ?></option>
+                                                        <?php 
+                                                        
+                                                        } else {
+
+                                                        ?>
+                                                            <option value="<?php echo $row55['id']; ?>"><?php echo $row55['name']; ?></option>
+                                                        <?php }
+
+                                                    }
+                                                ?>                                           
+                                            </select>
+                                            </div>
+                                        </div>
+                                        
 
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
