@@ -59,6 +59,11 @@
                             <i class="fa fa-fw fa-hospital-o"></i> Fixed Centers </a>
                     </li>
 
+                    <li>
+                        <a href="mobilecenters.php">
+                        <i class="fa fa-fw fa-ambulance"></i> Mobile Centers </a>
+                    </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

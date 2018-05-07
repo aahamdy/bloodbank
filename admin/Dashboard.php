@@ -59,16 +59,44 @@
         $stmt4->execute();
         $row4 = $stmt4->fetch();
 
-        // Number of All Blood Centers Query
+        // Number of Fixed Blood Centers Query
+
+        $stmt6 = $con->prepare   (" SELECT 
+                                        COUNT(id) AS FixedCenters
+                                    FROM 
+                                        BloodCenter, Center
+                                    WHERE
+                                        BloodCenter.id = Center.bloodCenterid && BloodCenter.registrationApproved = 0
+                                ");
+
+        $stmt6->execute();
+        $row6 = $stmt6->fetch();
+
+        // Number of All Mobile Blood Centers Query
 
         $stmt8 = $con->prepare   (" SELECT 
-                                        COUNT(id) AS AllCenters
+                                        COUNT(id) AS MobileCenters
                                     FROM 
                                         BloodCenter
+                                    WHERE
+                                        BloodCenter.bloodCenterTypeid = 2
                                 ");
 
         $stmt8->execute();
         $row8 = $stmt8->fetch();
+
+        // Number of All Mobile Blood Centers Query
+
+        $stmt9 = $con->prepare   (" SELECT 
+                                        COUNT(id) AS PendingMobileCenters
+                                    FROM 
+                                        BloodCenter
+                                    WHERE
+                                        BloodCenter.bloodCenterTypeid = 2 && BloodCenter.registrationApproved = 0
+                                ");
+
+        $stmt9->execute();
+        $row9 = $stmt9->fetch();
 
         // Blood Type and Quanitiy Query
 
@@ -197,6 +225,32 @@
 
                         <!-- End Fixed Centers Panal -->
 
+                        <!-- Start Fixed Centers Panal -->
+
+                        <div class="col-sm-6 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-sitemap fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="text-total"><?php echo $row6['FixedCenters']; ?></div>
+                                            <p class="titles">Pending Fixed Blood Centers</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="panel-footer detail-link clearfix btn-block" href="fixedcenters.php?do=Manage&page=Pending">
+                                    <span class="pull-left">View All</span>
+                                    <span class="pull-right">
+                                        <i class="fa fa-chevron-circle-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- End Fixed Centers Panal -->
+
                         <!-- Start Mobile Centers Panal -->
 
                         <div class="col-sm-6 col-md-6">
@@ -207,7 +261,7 @@
                                             <i class="fa fa-sitemap fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="text-total"><?php echo ($row8['AllCenters'] - $row4['FixedCenters']); ?></div>
+                                            <div class="text-total"><?php echo ($row8['MobileCenters']); ?></div>
                                             <p class="titles">Mobile Blood Centers</p>
                                         </div>
                                     </div>
@@ -222,6 +276,32 @@
                         </div>
 
                         <!-- End Mobile Centers Panal -->
+
+                        <!-- Start Pending Mobile Centers Panal -->
+
+                        <div class="col-sm-6 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-sitemap fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="text-total"><?php echo ($row9['PendingMobileCenters']); ?></div>
+                                            <p class="titles">Pending Mobile Blood Centers</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="panel-footer detail-link clearfix btn-block" href="mobilecenters.php?do=Manage&page=Pending">
+                                    <span class="pull-left">View All</span>
+                                    <span class="pull-right">
+                                        <i class="fa fa-chevron-circle-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- End Pending Mobile Centers Panal -->
 
                     </div>
                     

@@ -22,7 +22,7 @@
 
             if (isset($_GET['page']) && $_GET['page'] == 'Pending') {
 
-                $query = 'AND registrationApproved = 0';
+                $query = 'AND BloodCenter.registrationApproved = 0';
 
             }
 
@@ -30,10 +30,11 @@
                                             BloodCenter.fromTime, BloodCenter.toTime, BloodCenter.registrationApproved, Country.name AS country,
                                             Distirct.name AS district, Center.phone , Center.email , CenterType.name AS centerType
                                     FROM    BloodCenter, Country, Distirct, Center, CenterType
-                                    WHERE   BloodCenter.countryid = Country.id &&
+                                    WHERE   BloodCenter.bloodCenterTypeid = 1 &&
+                                            BloodCenter.countryid = Country.id &&
                                             BloodCenter.districtid = Distirct.id &&
                                             Center.bloodCenterid = BloodCenter.id && 
-                                            Center.centerTypeid = CenterType.id
+                                            Center.centerTypeid = CenterType.id $query
                                  ");
             $stmt->execute();
             $rows = $stmt->fetchAll();
