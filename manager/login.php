@@ -28,7 +28,7 @@
                                     AND 
                                         password = ? 
                                     AND 
-                                        adminLevel = 1
+                                        adminLevel = 0
                                     LIMIT 1
                                 ");
 
