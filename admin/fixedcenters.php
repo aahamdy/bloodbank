@@ -446,7 +446,7 @@
                                     <div id="response">
                                     </div>
                                     <form method="POST" action="?do=Update" class="form-horizontal form-label-left">
-
+                                    <input type="hidden" name="centerid" value="<?php echo $centerid ?>">
                                         <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12"> Center Name
                                                 <span class="required">*</span>
@@ -607,7 +607,7 @@
                 <div id="page-wrapper">
                     <div class="container-fluid">';
 
-                echo '<h1 class="text-center">Update Member</h1>';
+                echo '<h1 class="text-center">Update Center</h1>';
 
                 $theMsg =  "<div class='alert alert-danger'>There Is No Such ID</div>";
                 redirectHome($theMsg, 'back');
@@ -618,7 +618,7 @@
                     ';
             }
             
-        } elseif($do == 'Update') {     // Update Admin Page
+        } elseif($do == 'Update') {     // Update Center Page
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -626,34 +626,37 @@
                 echo '<div id="wrapper">  
                         <div id="page-wrapper">
                             <div class="container-fluid">';
-                echo '<h1 class="text-center">Update Admin</h1>';
+                echo '<h1 class="text-center">Update Center</h1>';
 
                 // Get Variables From the Form
 
-                $id         = $_POST['userid'];
-                $pass       = $_POST['pass'];
-                $fname      = $_POST['fname'];
-                $lname      = $_POST['lname'];
+                $id         = $_POST['centerid'];
+                $name       = $_POST['centername'];
+                $address    = $_POST['address'];
+                $district   = $_POST['district'];
+                $country    = $_POST['country'];
                 $email      = $_POST['email'];
                 $phone      = $_POST['phone'];
-                $center     = $_POST['center'];
-
-                // Password Trick
-
-                $pass = empty($_POST['newpassword']) ? $_POST['oldpassword'] : md5($_POST['newpassword']);
+                $open       = $_POST['open'];
+                $close      = $_POST['close'];
+                $type       = $_POST['type'];
 
                 // Update the Database with this Info
 
-                $stmt = $con->prepare(" UPDATE Members SET 
-                                            password = ?, fname = ?, lname = ?, email = ?, phone = ? , bloodCenterid = ? 
+                $stmt = $con->prepare(" UPDATE BloodCenter SET 
+                                            name = ?, address = ?, fromTime = ?, toTime = ?, countryid = ?, districtid = ?
                                         WHERE 
-                                            id = ?
+                                            id = ?;
+                                        UPDATE Center SET
+                                            phone = ?, email = ? , centerTypeid = ?
+                                        WHERE
+                                            bloodCenterid = ?
                                     ");
-                $stmt->execute(array($pass, $fname, $lname, $email, $phone, $center, $id));
+                $stmt->execute(array($name, $address, $open, $close, $country, $district, $id, $phone, $email, $type, $id));
 
                 // Echo Success Message
 
-                $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record Inserted</div>'; 
+                $theMsg = '<div class="alert alert-success">Record Updated</div>'; 
                 redirectHome($theMsg, 'back');
                 
             } else {
