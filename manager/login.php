@@ -3,7 +3,7 @@
     session_start();
     $noNavbar   = '';
 
-    if(isset($_SESSION['Username'])){
+    if(isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 0){
         header('Location: Dashboard.php');  // Redirect to Dashboard Page
     }    
 

@@ -10,7 +10,7 @@
 
     session_start();
 
-    if(isset($_SESSION['Username'])){
+    if(isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 0){
 
         include 'init.php';
 
