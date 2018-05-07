@@ -48,22 +48,7 @@
                         <a href="BloodQuantity.php">
                             <i class="fa fa-fw fa-sitemap"></i> Blood Quantity</a>
                     </li>
-
-                    <li>
-                        <a href="members.php">
-                            <i class="fa fa-fw fa-user"></i> Admins </a>
-                    </li>
                     
-                    <li>
-                        <a href="fixedcenters.php">
-                            <i class="fa fa-fw fa-hospital-o"></i> Fixed Centers </a>
-                    </li>
-
-                    <li>
-                        <a href="mobilecenters.php">
-                        <i class="fa fa-fw fa-ambulance"></i> Mobile Centers </a>
-                    </li>
-
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

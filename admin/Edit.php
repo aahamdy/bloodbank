@@ -2,11 +2,22 @@
 
     ob_start(); // Output Buffering Start
     session_start();
-
+    $dashboard_admin='';
     if(isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 1){
 
         include 'init.php';
-    
+
+        $stmt = $con->prepare   ("  SELECT 
+                                        Blood.Quantity, Blood.price, Blood.priceForHospital, BloodType.name As BloodType
+                                    FROM 
+                                        Blood, BloodType
+                                    WHERE
+                                        Blood.bloodCenterid = (SELECT Members.bloodCenterid FROM Members WHERE Members.id = ?) && Blood.bloodTypeid = BloodType.id
+                                ");
+
+        $stmt->execute(array($_SESSION['ID']));
+        $rows = $stmt->fetchAll();
+
 ?>  
 
         <div id="wrapper">
