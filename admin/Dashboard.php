@@ -46,16 +46,29 @@
         $stmt3->execute();
         $row3 = $stmt3->fetch();
 
-        // Total Number of Blood Centers Query
+        // Number of Fixed Blood Centers Query
 
         $stmt4 = $con->prepare   (" SELECT 
-                                        COUNT(id) AS BloodCenters
+                                        COUNT(id) AS FixedCenters
                                     FROM 
-                                        BloodCenter
+                                        BloodCenter, Center
+                                    WHERE
+                                        BloodCenter.id = Center.bloodCenterid
                                 ");
 
         $stmt4->execute();
         $row4 = $stmt4->fetch();
+
+        // Number of All Blood Centers Query
+
+        $stmt8 = $con->prepare   (" SELECT 
+                                        COUNT(id) AS AllCenters
+                                    FROM 
+                                        BloodCenter
+                                ");
+
+        $stmt8->execute();
+        $row8 = $stmt8->fetch();
 
         // Blood Type and Quanitiy Query
 
@@ -168,12 +181,12 @@
                                             <i class="fa fa-sitemap fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="text-total"><?php echo $row4['BloodCenters']; ?></div>
-                                            <p class="titles">Blood Centers</p>
+                                            <div class="text-total"><?php echo $row4['FixedCenters']; ?></div>
+                                            <p class="titles">Fixed Blood Centers</p>
                                         </div>
                                     </div>
                                 </div>
-                                <a class="panel-footer detail-link clearfix btn-block" href="BloodQuantity.php">
+                                <a class="panel-footer detail-link clearfix btn-block" href="fixedcenters.php">
                                     <span class="pull-left">View All</span>
                                     <span class="pull-right">
                                         <i class="fa fa-chevron-circle-right"></i>
@@ -183,6 +196,32 @@
                         </div>
 
                         <!-- End Total Centers Panal -->
+
+                        <!-- Start Mobile Centers Panal -->
+
+                        <div class="col-sm-6 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-sitemap fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="text-total"><?php echo ($row8['AllCenters'] - $row4['FixedCenters']); ?></div>
+                                            <p class="titles">Mobile Blood Centers</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="panel-footer detail-link clearfix btn-block" href="mobilecenters.php">
+                                    <span class="pull-left">View All</span>
+                                    <span class="pull-right">
+                                        <i class="fa fa-chevron-circle-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- End Mobile Centers Panal -->
 
                     </div>
                     
