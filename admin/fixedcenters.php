@@ -92,7 +92,7 @@
                                                 <a href="fixedcenters.php?do=Delete&centerid='. $row['id'] .'" style="padding:5px" class="btn btn-danger confirm"><i class="fa fa-close"></i> Delete</a> ';
                                                 
                                                 if($row['registrationApproved'] == 0) {
-                                                    echo '<a href="fixedcenters.php?do=Activate&userid='. $row['id'] .'" style="padding:5px" class="btn btn-info"><i class="fa fa-close"></i> Activate</a>';
+                                                    echo '<a href="fixedcenters.php?do=Activate&centerid='. $row['id'] .'" style="padding:5px" class="btn btn-info"><i class="fa fa-close"></i> Activate</a>';
                                                 }
 
                                             echo '</td>';
@@ -677,7 +677,7 @@
                     </div>
                     ';
     
-        } elseif($do == 'Delete') {     // Delete Admin Page
+        } elseif($do == 'Delete') {     // Delete Center Page
 
             echo '<div id="wrapper">  
                     <div id="page-wrapper">
@@ -685,23 +685,27 @@
 
             echo            '<h1 class="text-center">Delete Admin</h1>';
  
-             // Check if the GET request userid is Numeric and get the Integer value of it 
+             // Check if the GET request centerid is Numeric and get the Integer value of it 
  
-             $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+             $centerid = isset($_GET['centerid']) && is_numeric($_GET['centerid']) ? intval($_GET['centerid']) : 0;
  
              // Select all the data depends on this id
  
-             $check = checkItem("id","Members",$userid);
+             $check = checkItem("id","BloodCenter",$centerid);
  
              // If there is Such ID Show the Form
  
              if($check > 0) {
                  
-                 $stmt = $con->prepare("DELETE FROM Members WHERE id = :id");
-                 $stmt->bindParam(':id', $userid);
+                 $stmt = $con->prepare("DELETE FROM Center WHERE bloodCenterid = :id");
+                 $stmt->bindParam(':id', $centerid);
                  $stmt->execute();   
+
+                 $stmt2 = $con->prepare("DELETE FROM BloodCenter WHERE id = :id");
+                 $stmt2->bindParam(':id', $centerid);
+                 $stmt2->execute();   
                  
-                 $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record Deleted</div>'; 
+                 $theMsg = '<div class="alert alert-success">' . $stmt2->rowCount() . ' Record Deleted</div>'; 
                  redirectHome($theMsg, 'back');
  
              } else {
@@ -716,7 +720,7 @@
                     </div>
                     ';
 
-        } elseif($do == 'Activate') {
+        } elseif($do == 'Activate') {       // Activate Center Page
 
 
 
@@ -728,18 +732,18 @@
 
             // Check if the GET request userid is Numeric and get the Integer value of it 
 
-            $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) : 0;
+            $centerid = isset($_GET['centerid']) && is_numeric($_GET['centerid']) ? intval($_GET['centerid']) : 0;
 
             // Select all the data depends on this id
 
-            $check = checkItem("id","Members",$userid);
+            $check = checkItem("id","BloodCenter",$centerid);
 
             // If there is Such ID Show the Form
 
             if($check > 0) {
                 
-                $stmt = $con->prepare("UPDATE Members SET registrationApproved = 1 WHERE id = ?");
-                $stmt->execute(array($userid));   
+                $stmt = $con->prepare("UPDATE BloodCenter SET registrationApproved = 1 WHERE id = ?");
+                $stmt->execute(array($centerid));   
                 
                 $theMsg = '<div class="alert alert-success">' . $stmt->rowCount() . ' Record Activated</div>'; 
                 redirectHome($theMsg, 'back');
