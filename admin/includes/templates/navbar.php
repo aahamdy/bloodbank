@@ -53,10 +53,10 @@
                         <a href="members.php">
                             <i class="fa fa-fw fa-user"></i> Admins </a>
                     </li>
-
+                    
                     <li>
-                        <a href="GeneralSettings.php">
-                            <i class="fa fa-fw fa-cog"></i> General Settings</a>
+                        <a href="fixedcenters.php">
+                            <i class="fa fa-fw fa-hospital-o"></i> Fixed Centers </a>
                     </li>
 
                 </ul>

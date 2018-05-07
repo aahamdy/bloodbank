@@ -95,7 +95,7 @@
 
                         <!-- Start Blood Quantity Panel -->
 
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-12 col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <div class="row">
@@ -170,8 +170,8 @@
                         </div>
 
                         <!-- End Pending Admin Number Panal -->
-                        
-                        <!-- Start Total Centers Panal -->
+
+                        <!-- Start Fixed Centers Panal -->
 
                         <div class="col-sm-6 col-md-6">
                             <div class="panel panel-primary">
@@ -195,7 +195,7 @@
                             </div>
                         </div>
 
-                        <!-- End Total Centers Panal -->
+                        <!-- End Fixed Centers Panal -->
 
                         <!-- Start Mobile Centers Panal -->
 
