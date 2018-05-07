@@ -5,6 +5,6 @@
     session_unset();    // Unset the Data
     session_destroy();  // Destroy the Session
 
-    header('Location: login.php');
+    header('Location: ../manager/login.php');
     
     exit();
