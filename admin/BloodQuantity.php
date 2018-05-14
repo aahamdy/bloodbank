@@ -22,8 +22,6 @@
 
         <div id="wrapper">
             <div id="page-wrapper">
-
-            <?php echo $_SESSION['ID'];?>
                 <div class="container-fluid">
                     <div class="row" id="main">
                         <!-- Page Heading -->

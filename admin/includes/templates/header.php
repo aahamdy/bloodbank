@@ -24,7 +24,9 @@
     <?php if (isset($loaderScript)) {  echo '<script type="text/javascript" src="' . $js . 'loader.js"></script>' ;}?>
 
 
-
+<?php if (!isset($loaderScript)) { echo '
 </head>
 
 <body>
+'; }
+?>

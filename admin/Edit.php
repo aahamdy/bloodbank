@@ -3,6 +3,7 @@
     ob_start(); // Output Buffering Start
     session_start();
     $dashboard_admin='';
+    
     if(isset($_SESSION['Username']) && $_SESSION['AdminLevel'] == 1){
 
         include 'init.php';

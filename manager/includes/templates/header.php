@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="<?php echo $css ?>font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo $css ?>bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $css ?>backend.css">
+    <?php if(isset($loginstyle)){echo '<link rel="stylesheet" href="'. $css .'login.css">';}?>
+    
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo $css ?>style.css">
