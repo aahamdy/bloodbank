@@ -650,7 +650,7 @@
 
     } else {
 
-        header('Location: main.php');
+        header('Location: ../Home.php');
         exit();
 
     }

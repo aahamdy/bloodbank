@@ -30,7 +30,7 @@ function getTitle () {
 function redirectHome ($theMsg, $url = null, $seconds = 3){
 
     if ($url === null) {
-        $url = 'main.php';
+        $url = '../Home.php';
         $link = 'Homepage';
     } else {
 
@@ -38,7 +38,7 @@ function redirectHome ($theMsg, $url = null, $seconds = 3){
             $url = $_SERVER['HTTP_REFERER'];
             $link = 'Previous Page';
         } else {
-            $url = 'main.php';
+            $url = '../Home.php';
             $link = 'Homepage';
         }
     }
