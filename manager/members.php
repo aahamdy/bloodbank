@@ -619,7 +619,7 @@
         header('Location: main.php');
         exit();
 
-    }
+    } 
 
     ob_end_flush();
 
