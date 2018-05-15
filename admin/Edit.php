@@ -14,10 +14,12 @@
                                         Blood, BloodType
                                     WHERE
                                         Blood.bloodCenterid = (SELECT Members.bloodCenterid FROM Members WHERE Members.id = ?) && Blood.bloodTypeid = BloodType.id
+                                        AND BloodType.id = ?
                                 ");
 
-        $stmt->execute(array($_SESSION['ID']));
-        $rows = $stmt->fetchAll();
+        $stmt->execute(array($_SESSION['ID'], $_GET['btype']));
+        $rows = $stmt->fetch();
+
 
 ?>  
 
@@ -45,7 +47,7 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="name" class="form-control col-md-7 col-xs-12" name="name" value="A+" required="required" type="text" readonly>
+                                            <input id="name" class="form-control col-md-7 col-xs-12" name="name" value="<?php echo $rows['BloodType'];?>" required="required" type="text" readonly>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -53,14 +55,30 @@
                                             <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="slug" class="form-control col-md-7 col-xs-12" name="slug" value="a+" placeholder="Quantity Of The Blood Type"
+                                            <input id="slug" class="form-control col-md-7 col-xs-12" name="slug" value="<?php echo $rows['Quantity'];?>" placeholder="Quantity Of The Blood Type"
                                                 required="required" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="slug">Price for Individuals
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="slug" class="form-control col-md-7 col-xs-12" name="slug" value="<?php echo $rows['price'];?>" required="required" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="slug">Price for Hospitals
+                                            <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="slug" class="form-control col-md-7 col-xs-12" name="slug" value="<?php echo $rows['priceForHospital'];?>" required="required" type="text">
                                         </div>
                                     </div>
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-3">
-                                            <button type="submit" class="btn btn-success btn-block">Update Blood Quantity</button>
+                                            <button type="submit" class="btn btn-success btn-block">Update</button>
                                         </div>
                                     </div>
                                 </form>

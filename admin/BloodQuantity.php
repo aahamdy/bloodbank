@@ -9,7 +9,7 @@
         include 'init.php';
 
         $stmt = $con->prepare   ("  SELECT 
-                                        Blood.Quantity, Blood.price, Blood.priceForHospital, BloodType.name As BloodType
+                                        Blood.bloodCenterid, Blood.Quantity, Blood.price, Blood.priceForHospital, BloodType.name As BloodType, BloodType.id As Bloodid
                                     FROM 
                                         Blood, BloodType
                                     WHERE
@@ -53,7 +53,7 @@
                                                 <td><?php echo $row['Quantity'];?></td>
                                                 <td><?php echo $row['price']; ?></td>
                                                 <td><?php echo $row['priceForHospital']; ?></td>
-                                                <td><a href="Edit.php?btype=<?php echo $row['BloodType'];?>" style="padding:3px 7px" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a></td>
+                                                <td><a href="Edit.php?btype=<?php echo $row['Bloodid'];?>" style="padding:3px 7px" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a></td>
                                             </tr>
 <?php
                                             }
