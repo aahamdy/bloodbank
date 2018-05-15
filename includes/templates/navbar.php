@@ -1,4 +1,3 @@
-
 <div class="theme2">
 
 <div class="row">
@@ -29,7 +28,16 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="Home.php" class="">Blood Banks</a></li>
                     <li><a href="Donation.php" class="">Donation</a></li>
-                    <li><a href="manager/login.php" class="">Login</a></li>
+                    
+                    <?php if(!isset($_SESSION['Username'])){
+                        echo '<li><a href="manager/login.php" class="">Login</a></li>';
+                    }?>
+
+                    <?php if(isset($_SESSION['Username'])){
+                        echo '<li><a href="manager/logout.php" class="">Logout</a></li>';
+                    }?>
+                    
+                    
                 </ul>
             </div>
         </div>
