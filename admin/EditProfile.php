@@ -169,7 +169,7 @@
                     <div id="page-wrapper">
                         <div class="container-fluid">';
     
-                    echo '<h1 class="text-center">Insert Member</h1>';
+                    echo '<h1 class="text-center">Update Admin</h1>';
     
                     $theMsg =  '<div class="alert alert-danger">Sorry You Cannot Browse this Page Directly</div>';
                     redirectHome($theMsg, 'back');
@@ -193,6 +193,5 @@
     }
 
     ob_end_flush();
-
-
+    
 ?>
