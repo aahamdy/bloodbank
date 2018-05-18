@@ -1,0 +1,7 @@
+Blood Center admin:-
+id:     Admin
+pass:   123456
+
+Manager:-
+id:     Amr
+pass:   123456
