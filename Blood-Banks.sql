@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 04, 2018 at 09:29 PM
--- Server version: 5.7.22-0ubuntu0.16.04.1
--- PHP Version: 7.0.28-0ubuntu0.16.04.1
+-- Host: localhost:3306
+-- Generation Time: May 18, 2018 at 04:34 PM
+-- Server version: 5.7.18-1
+-- PHP Version: 7.1.6-2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -39,7 +39,7 @@ CREATE TABLE `Blood` (
 --
 
 INSERT INTO `Blood` (`Quantity`, `price`, `priceForHospital`, `bloodCenterid`, `bloodTypeid`) VALUES
-(1, 1, 0, 51, 1),
+(50, 1, 700, 51, 1),
 (2, 2, 0, 51, 2),
 (3, 3, 0, 51, 3),
 (4, 4, 0, 51, 4),
@@ -863,8 +863,8 @@ CREATE TABLE `BloodCenter` (
 --
 
 INSERT INTO `BloodCenter` (`id`, `name`, `address`, `fromTime`, `toTime`, `countryid`, `bloodCenterTypeid`, `districtid`, `registrationApproved`) VALUES
-(1, 'General Military Hospital', 'El Mostashfa El Italy St', '08:00:00', '17:00:00', 1, 2, 1, 0),
-(2, 'Gamal Abdel Nasr Hospital', 'EL ZAIM Gamal Abd El Naser Rd', '09:00:00', '18:00:00', 1, 2, 1, 0),
+(1, 'General Military Hospital', 'El Mostashfa El Italy St', '08:00:00', '17:00:00', 1, 2, 1, 1),
+(2, 'Gamal Abdel Nasr Hospital', 'EL ZAIM Gamal Abd El Naser Rd', '09:00:00', '18:00:00', 1, 2, 1, 1),
 (3, 'Zokaileh Medical Center', '64 Abi El Dardaa St', '07:00:00', '18:00:00', 1, 2, 9, 0),
 (4, 'University Hospital', 'Koleyet El Teb St', '06:00:00', '17:00:00', 1, 2, 3, 1),
 (5, 'The Egyptian British Company For Medical Services', 'Plot 2, 3rd Industrial Zone', '10:00:00', '15:00:00', 1, 2, 4, 1),
@@ -1011,8 +1011,8 @@ INSERT INTO `BloodCenter` (`id`, `name`, `address`, `fromTime`, `toTime`, `count
 (146, 'Central Amreya Center', 'Alexandria Amiriya Hajj Street Cherkaoui', '08:00:00', '18:00:00', 1, 1, 43, 1),
 (147, 'Abokir Country Center', 'Abokir Country', '13:00:00', '19:00:00', 1, 1, 49, 1),
 (148, 'Borg El Arab Center', 'Borg El Arab in front of police station', '13:00:00', '18:00:00', 1, 1, 4, 1),
-(149, 'Life Share Blood Center', '2051 North Mall Drive Alexandria', '13:00:00', '17:00:00', 1, 1, 10, 0),
-(150, 'Genome For Laboratories Supply & Blood Banks', '45 Mekka Bldg,Bahaa ElDin El Ghatoury St', '10:00:00', '16:00:00', 1, 1, 7, 0);
+(149, 'Life Share Blood Center', '2051 North Mall Drive Alexandria', '13:00:00', '17:00:00', 1, 1, 10, 1),
+(150, 'Genome For Laboratories Supply & Blood Banks', '45 Mekka Bldg,Bahaa ElDin El Ghatoury St', '10:00:00', '16:00:00', 1, 1, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -1085,7 +1085,7 @@ INSERT INTO `Center` (`phone`, `email`, `bloodCenterid`, `centerTypeid`) VALUES
 (34227722, 'adillon@me.com', 57, 2),
 (34256182, 'dmbkiwi@mac.com', 58, 2),
 (35227208, 'aibrahim@verizon.net', 59, 2),
-(35918002, 'ccohen@sbcglobal.net', 60, 2),
+(37281728, 'ccohen@sbcglobal.com', 60, 2),
 (33905958, 'wenzlaff@sbcglobal.net', 61, 2),
 (35278775, 'cparis@mac.com', 62, 2),
 (33936109, 'barnett@comcast.net', 63, 2),
@@ -1212,7 +1212,8 @@ CREATE TABLE `Country` (
 --
 
 INSERT INTO `Country` (`id`, `name`) VALUES
-(1, 'Alexandria');
+(1, 'Alexandria'),
+(2, 'Cairo');
 
 -- --------------------------------------------------------
 
@@ -1308,9 +1309,9 @@ CREATE TABLE `Members` (
 --
 
 INSERT INTO `Members` (`id`, `username`, `password`, `fname`, `lname`, `email`, `phone`, `bloodCenterid`, `adminLevel`, `registrationApproved`) VALUES
-(1, 'Burton', '0e8a18957406b57fe696888ee7b3e0f3', 'Antoine', 'Schultz', 'raides@optonline.net', 1213141516, 1, 1, 0),
-(2, 'Ward', '01a49ad9fd88d817c00afb0fa7922f08', 'Phoenix', 'Munoz', 'sakusha@att.net', 1213141516, 2, 1, 0),
-(3, 'Cain', 'a60937bb257b0894a881bb40512831a6', 'Estrella', 'Harvey', 'mnemonic@att.net', 1213141516, 3, 1, 0),
+(1, 'Burton', '0e8a18957406b57fe696888ee7b3e0f3', 'Antoine', 'Schultz', 'raides@optonline.net', 1213141516, 1, 1, 1),
+(2, 'Ward', '01a49ad9fd88d817c00afb0fa7922f08', 'Phoenix', 'Munoz', 'sakusha@att.net', 1213141516, 2, 1, 1),
+(3, 'Cain', 'a60937bb257b0894a881bb40512831a6', 'Estrella', 'Harvey', 'mnemonic@att.net', 1213141516, 3, 1, 1),
 (4, 'Mueller', '90ac41c1d187ebda94c62a03153b56b1', 'Emmett', 'Travis', 'pajas@msn.com', 1213141516, 4, 1, 1),
 (5, 'Thompson', 'f392ed111cfd54078dbe41b6ca126b99', 'Kobe', 'Booker', 'mdielmann@yahoo.com', 1213141516, 5, 1, 1),
 (6, 'Lutz', '4b482349a087b158c55987a3d9c59801', 'Jaylan', 'Griffith', 'guialbu@yahoo.com', 1213141516, 6, 1, 1),
@@ -1327,7 +1328,7 @@ INSERT INTO `Members` (`id`, `username`, `password`, `fname`, `lname`, `email`, 
 (17, 'Turner', '5dc5a66fbaba7e8956767c50b512a106', 'Fernanda', 'Pacheco', 'lishoy@msn.com', 1213141516, 17, 1, 1),
 (18, 'Waller', 'b8c50be2fa89089d1e998d1dd6b51542', 'Grayson', 'Andrews', 'ewaters@me.com', 1213141516, 18, 1, 1),
 (19, 'Nichols', '59d7ae1774ebb214071c04e85e0d7a57', 'Celeste', 'Bishop', 'forsberg@msn.com', 1213141516, 19, 1, 1),
-(20, 'Mcneil', '9cd810464b9ee923dedfd75c003d9716', 'Yoselin', 'Camacho', 'dartlife@outlook.com', 1213141516, 20, 1, 1),
+(20, 'Mcneil', '9cd810464b9ee923dedfd75c003d9716', 'Amr', 'Hamdy', 'aah@gmail.com', 1226267121, 38, 1, 1),
 (21, 'Bruce', '35cea04faba793397039a045bf1c511b', 'Heidy', 'Vasquez', 'formis@yahoo.com', 1213141516, 21, 1, 1),
 (22, 'Robinson', '263836cc93efe0c4223909094c1e0ae9', 'Alvaro', 'Greer', 'webteam@sbcglobal.net', 1213141516, 22, 1, 1),
 (23, 'Hebert', 'a72caf78300518458cc4219a333b3cbe', 'Melvin', 'Hunt', 'bryanw@mac.com', 1213141516, 23, 1, 1),
@@ -1456,13 +1457,14 @@ INSERT INTO `Members` (`id`, `username`, `password`, `fname`, `lname`, `email`, 
 (146, 'Allison', 'bd88e68b2a69f97cd72d3714230c54ff', 'Priscilla', 'Beard', 'wetter@yahoo.com', 1213141516, 146, 1, 1),
 (147, 'Ellis', 'c5b0199b91cbddf3880165e3cca0d92f', 'Ana', 'Grant', 'kempsonc@aol.com', 1213141516, 147, 1, 1),
 (148, 'Hines', 'cc4217299162168a13e6021a377d845b', 'Samir', 'Humphrey', 'shrapnull@outlook.com', 1213141516, 148, 1, 1),
-(149, 'Clements', '54e69c4da4c6b7a852082cbeb38caffa', 'Liberty', 'Black', 'dexter@gmail.com', 1213141516, 149, 1, 0),
+(149, 'Clements', '54e69c4da4c6b7a852082cbeb38caffa', 'Liberty', 'Black', 'dexter@gmail.com', 1213141516, 149, 1, 1),
 (150, 'Potter', 'ede85a5abf462ef9cac2f99253f1cf54', 'Mylee', 'Parrish', 'tbusch@msn.com', 1213141516, 150, 1, 0),
 (151, 'Magdy', 'e10adc3949ba59abbe56e057f20f883e', 'Mohamed', 'Magdy', 'mm.medany96@gmail.com', 1277993039, NULL, 0, 1),
 (152, 'Amr', 'e10adc3949ba59abbe56e057f20f883e', 'Amr', 'Hamdy', 'aah4work@gmail.com', 1226267121, NULL, 0, 1),
 (153, 'Farouk', 'e10adc3949ba59abbe56e057f20f883e', 'Mohamed', 'Farouk', 'mohamedfarouk1994@gmail.com', 1281259262, NULL, 0, 1),
 (154, 'Shady', 'e10adc3949ba59abbe56e057f20f883e', 'Shady', 'Naser', 'DeadCode8@gmail.com', 1011122821, NULL, 0, 1),
-(155, 'Aya', 'e10adc3949ba59abbe56e057f20f883e', 'Aya', 'Ashraf', 'aya1ashraf37977@gmail.com,', 1001345261, NULL, 0, 1);
+(155, 'Aya', 'e10adc3949ba59abbe56e057f20f883e', 'Aya', 'Ashraf', 'aya1ashraf37977@gmail.com', 1001345261, NULL, 0, 1),
+(156, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Amr', 'lastname2', 'admin2@gmail.com', 123, 51, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -1562,7 +1564,7 @@ ALTER TABLE `CenterType`
 -- AUTO_INCREMENT for table `Country`
 --
 ALTER TABLE `Country`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Distirct`
 --
@@ -1572,7 +1574,7 @@ ALTER TABLE `Distirct`
 -- AUTO_INCREMENT for table `Members`
 --
 ALTER TABLE `Members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 --
 -- Constraints for dumped tables
 --
